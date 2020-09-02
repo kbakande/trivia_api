@@ -64,10 +64,10 @@ def create_app(test_config=None):
   @app.route('/categories')
   def retrieve_categories():
     categories = Category.query.order_by(Category.id).all()
-    # categories_list = [category.format() for category in categories]
     categories_list = {category.id:category.type for category in categories}
 
     return jsonify({
+        "success": True,
         "categories" : categories_list
         })
 
@@ -127,15 +127,15 @@ def create_app(test_config=None):
   '''
   @app.route('/questions', methods=['POST'])
   def add_question():
-    req_body = request.get_json()
-
-    new_question = req_body.get('question', None)
-    new_answer = req_body.get('answer', None)
-    new_difficulty = req_body.get('difficulty', None)
-    new_category = req_body.get('category', None)
-
     try:
-      question = Question(question=new_question, answer=new_question, difficulty=new_difficulty, category=new_category)
+      req_body = request.get_json()
+
+      new_question = req_body.get('question', None)
+      new_answer = req_body.get('answer', None)
+      new_difficulty = req_body.get('difficulty', None)
+      new_category = req_body.get('category', None)
+
+      question = Question(question=new_question, answer=new_answer, difficulty=new_difficulty, category=new_category)
       question.insert()
 
       result = pagination(request, QUESTIONS_PER_PAGE)
@@ -160,6 +160,8 @@ def create_app(test_config=None):
     body = request.get_json()
     
     searchTerm = body.get('searchTerm', None)
+    if (not searchTerm) or (searchTerm is None):
+      abort(404)
     searchTerm = "%{}%".format(searchTerm)
 
     try:
@@ -167,6 +169,7 @@ def create_app(test_config=None):
       search_list = [que.format() for que in searched_questions]
 
       return jsonify({
+        "success": True,
         "questions": search_list,
         "totalQuestions": len(search_list),
         "currentCategory" : None
@@ -184,15 +187,11 @@ def create_app(test_config=None):
   @app.route('/categories/<int:cat_id>/questions')
   def getByCategory(cat_id):
     try:
-      cat = Category.query.filter(Category.id==cat_id).one_or_none()
-
-      if cat is None:
-        abort(404)
-
-      cat_type = cat.format()
-
       cat_questions = Question.query.filter(Question.category==cat_id).all()
       catQuestionsList = [que.format() for que in cat_questions]
+
+      if not catQuestionsList:
+        abort(404)
 
       return jsonify({
         "questions" : catQuestionsList,
@@ -237,6 +236,7 @@ def create_app(test_config=None):
           currentQuestion = que
           break
       return jsonify({
+        'success': True,
         'previousQuestions': body['previous_questions'],
         'question': currentQuestion
       })
