@@ -17,7 +17,6 @@ def pagination(request, QUESTIONS_PER_PAGE):
   paginated_questions = questions_list[start:end]
   categories = Category.query.order_by(Category.id).all()
   categories_list = {category.id:category.type for category in categories}
-  
   return jsonify({
     'questions': paginated_questions,
     'totalQuestions': len(questions_list),
@@ -60,7 +59,13 @@ def create_app(test_config=None):
         abort(404)
       question.delete()
       result = pagination(request, QUESTIONS_PER_PAGE)
-      return result
+      result = result.get_json()
+      return jsonify({
+        "success": True,
+        "deleted_id": question_id,
+        "questions": result["questions"],
+        "totalQuestions": result["totalQuestions"]
+      })
     except:
       abort(422)
 
@@ -75,7 +80,13 @@ def create_app(test_config=None):
       question = Question(question=new_question, answer=new_answer, difficulty=new_difficulty, category=new_category)
       question.insert()
       result = pagination(request, QUESTIONS_PER_PAGE)
-      return result
+      result = result.get_json()
+      return jsonify ({
+        "success": True,
+        "created_id":question.id,
+        "questions": result["questions"],
+        "totalQuestions": result["totalQuestions"]
+      })
     except:
       abort(422)
 
@@ -106,6 +117,7 @@ def create_app(test_config=None):
       if not catQuestionsList:
         abort(404)
       return jsonify({
+        "success": True,
         "questions" : catQuestionsList,
         "totalQuestions": len(catQuestionsList),
         "currentCategory": cat_id
