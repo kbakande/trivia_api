@@ -67,7 +67,7 @@ Errors are returned as JSON objects in the following formats:
 { 
     "success": False,
     "error": 404,
-    "message": 'resource not found'
+    "message": "resource not found"
 }
 ```
 
