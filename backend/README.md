@@ -84,7 +84,7 @@ GET /categories
     - Request Arguments: Results are paginated in groups of 10. Include an optional request argument to specify page number, starting from 1
 * Sample: ''' curl 127.0.0.1:5000/categories '''
 
-'''json
+```json
 {
    "categories":{
       "1":"Science",
@@ -96,7 +96,7 @@ GET /categories
    },
    "success":true
 }
-'''
+```
 
 GET /questions
 * General
@@ -104,7 +104,7 @@ GET /questions
     - Request Arguments: Results are paginated in groups of 10. Include an optional request argument to specify page number, starting from 1
 * Sample: ''' curl 127.0.0.1:5000/questions?page=1'''
 
-'''json
+```json
 {
    "categories":{
       "1":"Science",
@@ -126,7 +126,7 @@ GET /questions
    ],
    "totalQuestions":1
 }
-'''
+```
 
 DELETE /questions/{question_id}
 * General
@@ -135,7 +135,7 @@ DELETE /questions/{question_id}
 
 * Sample: 'curl -X DELETE http://127.0.0.1:5000/questions/16?page=2'
 
-'''json
+```json
 {
   "deleted_id": "13",
   "questions": [
@@ -150,7 +150,7 @@ DELETE /questions/{question_id}
   "success": true,
   "totalQuestions": 4
 }
-'''
+```
 
 
 POST /questions
@@ -159,7 +159,7 @@ POST /questions
 
 * Sample: 'curl -X POST -H "Content-Type: application/json" -d '{"answer":"Barack Obama","category":4,"difficulty":1,"question":"Who is the first Black US president?"}' http://127.0.0.1:5000/questions?page=1' 
 
-'''json
+```json
 {
   "created_id": 53,
   "questions": [
@@ -174,7 +174,7 @@ POST /questions
   "success": true,
   "totalQuestions": 5
 }
-'''
+```
 
 POST /search_questions
 * General
@@ -182,7 +182,7 @@ POST /search_questions
 
 * Sample: 'curl -X POST -H "Content-Type: application/json" -d '{"searchTerm":"title"}' http://127.0.0.1:5000/search_questions' 
 
-'''json
+```json
 {
   "currentCategory": null,
   "questions": [
@@ -204,7 +204,7 @@ POST /search_questions
   "success": true,
   "totalQuestions": 2
 }
-'''
+```
 
 GET /categories/{category_id}/questions
 * General
@@ -212,7 +212,7 @@ GET /categories/{category_id}/questions
 
 * Sample: 'curl http://127.0.0.1:5000/categories/1/questions' 
 
-'''json
+```json
 {
   "currentCategory": 5,
   "questions": [
@@ -227,7 +227,7 @@ GET /categories/{category_id}/questions
   "success": true,
   "totalQuestions": 1
 }
-'''
+```
 
 POST /quizzes
 * General
@@ -235,7 +235,7 @@ POST /quizzes
 
 * Sample: 'curl -X POST -H "Content-Type: application/json" -d '{"quiz_category": {"id": 5}, "previous_questions": []}' http://127.0.0.1:5000/quizzes' 
 
-'''json
+```json
 {
   "previousQuestions": [],
   "question": {
@@ -247,9 +247,10 @@ POST /quizzes
   },
   "success": true
 }
-'''
+```
 ## Testing
 To run the tests, run
+
 ```
 dropdb trivia_test
 createdb trivia_test
