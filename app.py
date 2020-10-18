@@ -46,6 +46,10 @@ def create_app(test_config=None):
   # def index():
   #   return app.send_static_file('index.html')
 
+  @app.route('/')
+  def home():
+    retun {"Welcome to the Trivia API app"}
+    
   @app.route('/categories')
   def retrieve_categories():
     categories = Category.query.order_by(Category.id).all()
