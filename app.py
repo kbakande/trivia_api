@@ -29,8 +29,8 @@ def pagination(request, QUESTIONS_PER_PAGE):
 
 def create_app(test_config=None):
   # create and configure the app
-  # app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
-  app = Flask(__name__)
+  app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
+  # app = Flask(__name__)
   setup_db(app)
   migrate.init_app(app, db)
 
@@ -42,13 +42,13 @@ def create_app(test_config=None):
     response.headers.add("Access-Control-Allowed-Methods", "GET, PATCH, POST, DELETE, OPTIONS")
     return response
 
-  # @app.route('/')
-  # def index():
-  #   return app.send_static_file('index.html')
-
   @app.route('/')
-  def home():
-    return {"Home":"Welcome to the Trivia API app"}
+  def index():
+    return app.send_static_file('index.html')
+
+  # @app.route('/')
+  # def home():
+  #   return {"Home":"Welcome to the Trivia API app"}
 
   @app.route('/categories')
   def retrieve_categories():
