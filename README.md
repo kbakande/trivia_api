@@ -82,7 +82,11 @@ GET /categories
 * General
     - Returns an object with a single key, categories, that contains a object of id: category_string key:value pairs. 
     - Request Arguments: Results are paginated in groups of 10. Include an optional request argument to specify page number, starting from 1
-* Sample: ''' curl 127.0.0.1:5000/categories '''
+* Sample: 
+
+```bash
+ curl 127.0.0.1:5000/categories 
+ ```
 
 ```json
 {
@@ -102,7 +106,11 @@ GET /questions
 * General
     - Return a dictionary with 4 keys representing categories, currentCategory, questions and totalQuestions. Categories is a object, current category is null, questions is a list of question objects while totalQuestions is an integer indicating the number of questions 
     - Request Arguments: Results are paginated in groups of 10. Include an optional request argument to specify page number, starting from 1
-* Sample: ''' curl 127.0.0.1:5000/questions?page=1'''
+* Sample:
+
+```bash
+  curl 127.0.0.1:5000/questions?page=1
+ ```
 
 ```json
 {
@@ -133,7 +141,11 @@ DELETE /questions/{question_id}
     - Deletes the question of the given id if it exists. Returns the id of the deleted question, success value, total questions and questions list 
       based on the current page number to update the frontend.
 
-* Sample: 'curl -X DELETE http://127.0.0.1:5000/questions/16?page=2'
+* Sample: 
+
+```bash
+  curl -X DELETE http://127.0.0.1:5000/questions/16?page=2
+ ```
 
 ```json
 {
@@ -157,7 +169,11 @@ POST /questions
 * General
     - Creates a new question using the submitted question, answer, category and difficulty. Returns the id of the created question, success value, total questions, and question list based on current page number to update the frontend.
 
-* Sample: 'curl -X POST -H "Content-Type: application/json" -d '{"answer":"Barack Obama","category":4,"difficulty":1,"question":"Who is the first Black US president?"}' http://127.0.0.1:5000/questions?page=1' 
+* Sample: 
+
+```bash
+  curl -X POST -H "Content-Type: application/json" -d '{"answer":"Barack Obama","category":4,"difficulty":1,"question":"Who is the first Black US president?"}' http://127.0.0.1:5000/questions?page=1
+ ```
 
 ```json
 {
@@ -180,7 +196,12 @@ POST /search_questions
 * General
     - Retrieves questions based on a search term submitted by the client. Returns a list of questions matching the search term to be displayed on the frontend, success value, total questions and the current category which is null.
 
-* Sample: 'curl -X POST -H "Content-Type: application/json" -d '{"searchTerm":"title"}' http://127.0.0.1:5000/search_questions' 
+* Sample:  
+
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"searchTerm":"title"}' http://127.0.0.1:5000/search_questions
+ ```
 
 ```json
 {
@@ -210,7 +231,12 @@ GET /categories/{category_id}/questions
 * General
     - Retrieves questions corresponding to the category id. Returns a list of questions matching the category id, success value, total number questions in the category and the current category.
 
-* Sample: 'curl http://127.0.0.1:5000/categories/1/questions' 
+* Sample: 
+
+
+```bash
+curl http://127.0.0.1:5000/categories/1/questions
+ ```
 
 ```json
 {
@@ -233,8 +259,12 @@ POST /quizzes
 * General
     - Retrieves questions based on the submitted category_id and list of previous questions' ids. Returns a list of questions matching the category id and not in the previous questions, succes value and the list of previous questions' ids.
 
-* Sample: 'curl -X POST -H "Content-Type: application/json" -d '{"quiz_category": {"id": 5}, "previous_questions": []}' http://127.0.0.1:5000/quizzes' 
+* Sample: 
 
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"quiz_category": {"id": 5}, "previous_questions": []}' http://127.0.0.1:5000/quizzes
+ ```
+ 
 ```json
 {
   "previousQuestions": [],
