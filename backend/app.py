@@ -11,22 +11,6 @@ migrate = Migrate()
 
 QUESTIONS_PER_PAGE = 10
 
-def pagination(request, QUESTIONS_PER_PAGE):
-  page = request.args.get('page', 1, type=int)
-  start = (page - 1) * QUESTIONS_PER_PAGE
-  end = start + QUESTIONS_PER_PAGE
-  questions = Question.query.order_by(Question.id).all()
-  questions_list = [question.format() for question in questions]
-  paginated_questions = questions_list[start:end]
-  categories = Category.query.order_by(Category.id).all()
-  categories_list = {category.id:category.type for category in categories}
-  return jsonify({
-    'questions': paginated_questions,
-    'totalQuestions': len(questions_list),
-    'categories' : categories_list,
-    'currentCategory': None
-    })
-
 def create_app(test_config=None):
   # create and configure the app
   # app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
@@ -45,10 +29,6 @@ def create_app(test_config=None):
   # @app.route('/')
   # def index():
   #   return app.send_static_file('index.html')
-
-  @app.route('/')
-  def home():
-    return {"Home":"Welcome to the Trivia API app"}
 
   @app.route('/categories')
   def retrieve_categories():
@@ -183,5 +163,5 @@ def create_app(test_config=None):
     }), 422
 
   return app
-
+  
 app = create_app()
