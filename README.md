@@ -1,4 +1,7 @@
 # Full Stack Trivia API Backend
+The Trivia API is a platform that is designed to enable a scored-based game of trivia questions that test knowledge on a range of domains. The Trivia API is deployed on Heroku and live at [trivia-api](https://trivia-ques.herokuapp.com/. 
+
+The code follows [PEP 8 style guide](https://pep8.org/).
 
 ## Getting Started
 
@@ -198,11 +201,9 @@ POST /search_questions
 
 * Sample:  
 
-
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"searchTerm":"title"}' http://127.0.0.1:5000/search_questions
  ```
-
 ```json
 {
   "currentCategory": null,
@@ -237,7 +238,6 @@ GET /categories/{category_id}/questions
 ```bash
 curl http://127.0.0.1:5000/categories/1/questions
  ```
-
 ```json
 {
   "currentCategory": 5,
